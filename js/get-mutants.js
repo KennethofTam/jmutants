@@ -9,10 +9,19 @@ function loadMutants(mutants) {
 }
 
 function addMutant(i, mutant) {
-  console.log(mutant.mutant_name);
+  // Vomits all of the mutant names onto the main page
+  // $('body').prepend(mutant.mutant_name);
+
+  $('#mutantList').append('<li>' + mutant.mutant_name + '</li>');
 }
 
 $.get({
   url: url,
   success: loadMutants
+  // loadMutants does not technically get called until get is completed
+  // because possible failures may occur
 });
+
+//FLOW OF PROGRAM
+// .get -> loadMutants -> .each -> addMutant -> .append -> addMutant ->
+// .append -> ... -> .append
