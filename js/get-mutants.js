@@ -1,18 +1,24 @@
 // Always check that you linked files in the index
 // alert('Test');
 
-var url =  "https://mutant-school.herokuapp.com/api/v1/mutants";
+var url = 'https://mutant-school.herokuapp.com/api/v1/mutants';
 
 // First argument of function will be what you're iterating over
 function loadMutants(mutants) {
-  $.each(mutants, addMutant);
+  $.each(mutants, function(i, mutant) {
+    addMutant(mutant);
+  });
 }
 
-function addMutant(i, mutant) {
+function addMutant(mutant) {
   // Vomits all of the mutant names onto the main page
   // $('body').prepend(mutant.mutant_name);
-
-  $('#mutantList').append('<li>' + mutant.mutant_name + '</li>');
+  var li = $('.template')
+    .clone()
+    .removeClass('template');
+   li.find('.mutant-name').text(mutant.mutant_name);
+   li.attr('data-id', mutant.id);
+   $('#mutantList').append(li);
 }
 
 $.get({
